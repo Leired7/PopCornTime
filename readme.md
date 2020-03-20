@@ -6,7 +6,7 @@
 https://github.com/WildCodeSchool/0320-MADRID-checkpoint2-react.git
 
 # change directory
-session-0319-checkpoint2-react
+cd 0320-MADRID-checkpoint2-react
 
 # make your own branch
 git checkout -b city_lastName_firstName
