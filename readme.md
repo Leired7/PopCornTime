@@ -3,7 +3,7 @@
 
 ```
 # clone
-git clone https://github.com/WildCodeSchool/session-0319-checkpoint2-react
+https://github.com/WildCodeSchool/0320-MADRID-checkpoint2-react.git
 
 # change directory
 session-0319-checkpoint2-react
