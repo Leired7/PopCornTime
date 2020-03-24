@@ -1,14 +1,20 @@
 import React from "react";
-import Movie from "./components/Movie.js";
+import Movie from "./components/Movie";
+import PopCorn from "./img/palomitas-de-maiz.png";
 
 import axios from "axios";
+
 import "bootstrap/dist/css/bootstrap.min.css";
+import { CardColumns } from "react-bootstrap";
+
+import "./App.css";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      films: null
+      films: null,
+      loading: true
     };
   }
 
@@ -27,21 +33,47 @@ class App extends React.Component {
       // Use this data to update the state
       .then(data => {
         this.setState({
-          films: data.movies[0]
+          films: data.movies,
+          loading: false,
+          favoriteFilms: []
         });
         console.log(this.state.films);
       });
   }
 
   render() {
+    if (this.state.loading) {
+      return <div>"La info está llegando ..."</div>;
+    }
     return (
-      <div className="App">
-        {this.state.films ? (
-          <Movie movies={this.state.films} />
-        ) : (
-          <p>No data yet</p>
-        )}
-      </div>
+      <React.Fragment>
+        <header>
+          <img src={PopCorn} alt="Logo of Pop Corn" />
+          <h1>Welcome to Pop Corn Time database</h1>
+        </header>
+        <CardColumns className="container">
+          {this.state.films.map((item, index) => {
+            return (
+              <Movie
+                key={index}
+                director={item.director}
+                title={item.title}
+                plot={item.plot}
+              />
+            );
+          })}
+        </CardColumns>
+        <footer>
+          Iconos diseñados por
+          <a href="https://www.flaticon.es/autores/freepik" title="Freepik">
+            &nbsp; Freepik &nbsp;
+          </a>
+          from
+          <a href="https://www.flaticon.es/" title="Flaticon">
+            &nbsp; www.flaticon.es &nbsp;
+          </a>
+        </footer>
+      </React.Fragment>
     );
   }
 }
