@@ -13,8 +13,9 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      films: null,
-      loading: true
+      filmsApi: null,
+      loading: true,
+      favoriteFilms: []
     };
   }
 
@@ -41,6 +42,14 @@ class App extends React.Component {
       });
   }
 
+  addToFavorite(indexOfMovie) {
+    !this.state.favoriteFilms.includes(indexOfMovie)
+      ? this.setState({
+          favoriteFilms: [...this.state.favoriteFilms, indexOfMovie]
+        })
+      : console.log(indexOfMovie);
+  }
+
   render() {
     if (this.state.loading) {
       return <div>"La info está llegando ..."</div>;
@@ -52,27 +61,14 @@ class App extends React.Component {
           <h1>Welcome to Pop Corn Time database</h1>
         </header>
         <CardColumns className="container">
-          {this.state.films.map((item, index) => {
-            return (
-              <Movie
-                key={index}
-                director={item.director}
-                title={item.title}
-                plot={item.plot}
-              />
-            );
-          })}
+          <Movie
+            infoFilms={this.state.films}
+            favoriteFilms={this.state.favoriteFilms}
+            addToFavorite={indexOfMovie => {
+              this.addToFavorite(indexOfMovie);
+            }}
+          />
         </CardColumns>
-        <footer>
-          Iconos diseñados por
-          <a href="https://www.flaticon.es/autores/freepik" title="Freepik">
-            &nbsp; Freepik &nbsp;
-          </a>
-          from
-          <a href="https://www.flaticon.es/" title="Flaticon">
-            &nbsp; www.flaticon.es &nbsp;
-          </a>
-        </footer>
       </React.Fragment>
     );
   }
