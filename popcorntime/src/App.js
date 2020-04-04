@@ -15,7 +15,7 @@ class App extends React.Component {
     this.state = {
       filmsApi: null,
       loading: true,
-      favoriteFilms: []
+      favoriteFilms: [],
     };
   }
 
@@ -30,13 +30,13 @@ class App extends React.Component {
         "https://raw.githubusercontent.com/wildcodeschoolparis/datas/master/movies.json"
       )
       // Extract the DATA from the received response
-      .then(response => response.data)
+      .then((response) => response.data)
       // Use this data to update the state
-      .then(data => {
+      .then((data) => {
         this.setState({
           films: data.movies,
           loading: false,
-          favoriteFilms: []
+          favoriteFilms: [],
         });
         console.log(this.state.films);
       });
@@ -45,9 +45,17 @@ class App extends React.Component {
   addToFavorite(indexOfMovie) {
     !this.state.favoriteFilms.includes(indexOfMovie)
       ? this.setState({
-          favoriteFilms: [...this.state.favoriteFilms, indexOfMovie]
+          favoriteFilms: [...this.state.favoriteFilms, indexOfMovie],
         })
-      : console.log(indexOfMovie);
+      : console.log("hi");
+  }
+
+  removeFromFavorite(indexOfMovie) {
+    const favoriteFilms = this.state.favoriteFilms.filter(
+      (idMovie) => idMovie !== indexOfMovie
+    );
+    this.setState({ favoriteFilms });
+    console.log("click remove", indexOfMovie);
   }
 
   render() {
@@ -64,9 +72,10 @@ class App extends React.Component {
           <Movie
             infoFilms={this.state.films}
             favoriteFilms={this.state.favoriteFilms}
-            addToFavorite={indexOfMovie => {
+            addToFavorite={(indexOfMovie) => {
               this.addToFavorite(indexOfMovie);
             }}
+            onRemove={(indexOfMovie) => this.removeFromFavorite(indexOfMovie)}
           />
         </CardColumns>
       </React.Fragment>

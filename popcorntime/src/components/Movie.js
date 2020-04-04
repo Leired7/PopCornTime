@@ -3,9 +3,9 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import { Card } from "react-bootstrap";
 
-const Movie = props => {
-  console.log("estoy en Movie", props);
-  console.log(props.favoriteFilms);
+const Movie = (props) => {
+  /* console.log("estoy en Movie", props);
+  console.log(props.favoriteFilms); */
 
   return (
     <div>
@@ -26,13 +26,16 @@ const Movie = props => {
               <Button
                 onClick={() => props.addToFavorite(index)}
                 variant={
-                  props.favoriteFilms.includes(index) ? "danger" : "success"
+                  props.favoriteFilms.includes(index) ? "success" : "info"
                 }
               >
                 {props.favoriteFilms.includes(index)
-                  ? "Remove favorite"
+                  ? "In favorite"
                   : "Add favorite"}{" "}
               </Button>{" "}
+              <Button variant="danger" onClick={() => props.onRemove(index)}>
+                Remove
+              </Button>
             </Card.Body>
           </Card>
         );
