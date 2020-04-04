@@ -23,19 +23,18 @@ const Movie = (props) => {
             <Card.Body>
               <Card.Title>{element.title}</Card.Title>
               <Card.Text>{element.plot}</Card.Text>
-              <Button
-                onClick={() => props.addToFavorite(index)}
-                variant={
-                  props.favoriteFilms.includes(index) ? "success" : "info"
-                }
-              >
-                {props.favoriteFilms.includes(index)
-                  ? "In favorite"
-                  : "Add favorite"}{" "}
-              </Button>{" "}
-              <Button variant="danger" onClick={() => props.onRemove(index)}>
-                Remove
-              </Button>
+              {!props.favoriteFilms.includes(index) ? (
+                <Button
+                  onClick={() => props.addToFavorite(index)}
+                  variant="info"
+                >
+                  Add Favorite
+                </Button>
+              ) : (
+                <Button variant="danger" onClick={() => props.onRemove(index)}>
+                  Remove
+                </Button>
+              )}
             </Card.Body>
           </Card>
         );
